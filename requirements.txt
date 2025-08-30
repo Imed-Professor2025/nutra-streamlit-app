@@ -1,0 +1,11 @@
+streamlit>=1.20
+rdkit-pypi
+numpy
+pandas
+matplotlib
+scikit-learn
+tqdm
+py3Dmol
+joblib
+openpyxl
+# Dépendances à installer
