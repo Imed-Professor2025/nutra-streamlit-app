@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutraceutical Discovery</title>
+  <style>
+    /* ===== Global Style ===== */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(to right, #0f9b0f, #00b4db); /* Green → Blue */
+      color: #fff;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      width: 220px;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #00b4db;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      margin: 10px 0;
+      display: block;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .sidebar a:hover {
+      color: #00b4db;
+      transform: translateX(5px);
+    }
+
+    /* ===== Main Content ===== */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    /* ===== Animated Title ===== */
+    .title {
+      font-size: 2rem;
+      font-style: italic;
+      font-weight: bold;
+      animation: float 3s ease-in-out infinite;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ===== Sections ===== */
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Login ===== */
+    .login-box {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .login-box input[type="password"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    .login-box button {
+      padding: 10px 20px;
+      font-weight: bold;
+      background-color: #00b4db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .login-box button:hover {
+      background-color: #0f9b0f;
+    }
+
+    /* ===== Iframe ===== */
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== Sidebar ===== -->
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <a onclick="showSection('home')">Home</a>
+    <a onclick="showSection('disease')">Disease in Focus</a>
+    <a onclick="showSection('workflow')">Workflow</a>
+    <a onclick="showSection('insilico')">Insilico Work</a>
+    <a onclick="showSection('about')">About</a>
+  </div>
+
+  <!-- ===== Main Content ===== -->
+  <div class="main-content">
+    <h1 class="title">Nutraceutical Product Discovery for Auto-Immune Diseases</h1>
+
+    <div id="home" class="section active">
+      <h2>Welcome</h2>
+      <p>This is the homepage of your project. You can navigate using the menu on the left.</p>
+    </div>
+
+    <div id="disease" class="section">
+      <h2>Disease in Focus</h2>
+      <p>Here you can present the targeted autoimmune disease and its scientific details.</p>
+    </div>
+
+    <div id="workflow" class="section">
+      <h2>Workflow</h2>
+      <p>This section details the nutraceutical discovery pipeline steps.</p>
+    </div>
+
+    <div id="insilico" class="section">
+      <h2>Insilico Work</h2>
+      <div id="loginDiv" class="login-box">
+        <p>Please enter license password to access the Insilico Work App:</p>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <br>
+        <button onclick="checkPassword()">Login</button>
+        <p id="loginMessage" style="color: #ff8080; font-weight: bold;"></p>
+      </div>
+      <div id="streamlitDiv" style="display:none;">
+        <iframe src="http://localhost:8501" title="Streamlit App"></iframe>
+      </div>
+    </div>
+
+    <div id="about" class="section">
+      <h2>About</h2>
+      <p>Information about the project, the team, and long-term goals.</p>
+    </div>
+  </div>
+
+  <script>
+    // JS function to display sections
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    // ===== Login check =====
+    const LICENSE_KEY = "imed2025"; // same as your main.py
+    function checkPassword() {
+      const pwd = document.getElementById("passwordInput").value;
+      const message = document.getElementById("loginMessage");
+      if(pwd === LICENSE_KEY){
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("streamlitDiv").style.display = "block";
+      } else {
+        message.textContent = "❌ Invalid license key";
+      }
+    }
+  </script>
+
+</body>
+</html>
